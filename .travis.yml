@@ -14,3 +14,11 @@ after_success:
   - docker build -t thanhhai1002/multi-server ./server
   - docker build -t thanhhai1002/multi-worker ./worker
   
+  # login to docker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# take image and push to docker hub
+  - docker push thanhhai1002/multi-client
+  - docker push thanhhai1002/multi-nginx
+  - docker push thanhhai1002/multi-server
+  - docker push thanhhai1002/multi-worker
