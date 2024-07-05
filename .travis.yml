@@ -1,0 +1,16 @@
+sudo: required
+services:
+  - docker
+  
+berfore_install:
+  - docker build -t thanhhai1002/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true thanhhai1002/react-test npm run test
+
+after_success:
+  - docker build -t thanhhai1002/multi-client ./client
+  - docker build -t thanhhai1002/multi-nginx ./nginx
+  - docker build -t thanhhai1002/multi-server ./server
+  - docker build -t thanhhai1002/multi-worker ./worker
+  
